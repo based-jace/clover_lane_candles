@@ -1,2 +1,6 @@
 secret.py
 *.mp4
+.vscode
+__pycache__
+migrations
+node_modules
