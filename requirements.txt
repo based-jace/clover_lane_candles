@@ -1,0 +1,5 @@
+pillow>=6.0.0
+python-memcached>=1.59
+django>=2.1.7
+django-model-utils>=3.1.2
+celery>=4.3.0

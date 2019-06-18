@@ -1,0 +1,42 @@
+{% extends 'mainsite/foundation.html' %}
+{% load static %}
+
+{% block add_styles %}<link rel="stylesheet" href="{% static 'mainsite/products.css' %}">{% endblock %}
+{% block content %}
+    <section class="product-list">
+        <div class="inner-cont">
+        {% regroup product_list by type_id as product_category_list %}
+<script>
+    let prod_category_list = {{prod_list_json|safe}};
+    const MEDIA_URL = {{ MEDIA_URL }};
+    const ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
+</script>
+        {% for product_category in product_category_list %}
+            <div class="product lb-prime" id="{{ product_category.grouper.css_id }}">
+                <div class="prod_sec_left">
+                    <div class="img-cont prod-img-cont">
+                        <img class="prod_img" id="pi_{{ product_category.grouper.css_id }}" src="">
+                    </div>
+                </div>
+                <div class="prod_sec_right">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h2 class="p_head">{{ product_category.grouper }}</h2>
+                        <p class="prod_desc">{{ product_category.grouper.desc }}</p>
+                        <select name="product" class="prod_select" id="{{ product_category.grouper.css_id }}_select">
+                        {% for product in product_category.list|dictsort:"scent_id.name" %}
+                            <option value="p{{ product.id }}" {% if product.is_main %}selected="selected"{% endif %}>
+                                {{product.scent_id}}
+                        {% endfor %}
+                        </select>
+                        <input name="quantity" class="order_amt_in" id="no_{{ product_category.grouper.css_id }}" type="text" placeholder="min {{ product_category.grouper.min_order }}">
+                        <button type="button" class="add_prod_btn" id="{{ product_category.grouper.css_id }}_btn">Add</button>
+                        <p id="sc_{{ product_category.grouper.css_id }}" class="scent_desc"></p> 
+                    </form>
+                </div>
+            </div> 
+        {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+{% block add_js %}<script src="{% static 'mainsite/products.js' %}"></script>{% endblock %}

@@ -1,0 +1,33 @@
+//#region colors
+$black: #192020;
+$primary-color: #098B43;
+$primary-dark: #044421;
+$sub-prime-color: #d7ff99;
+$complementary-prime: #7ec546;
+$secondary-color: #ff85a6;
+$sub-second-color: #fffdad;
+$light-color: #fff2eb;
+$nav-header-color: $sub-prime-color;
+//#endregion colors
+
+//#region fonts
+$title-font: 'Rochester', cursive;
+$body-font: 'Marmelad', sans-serif;
+//#endregion fonts
+
+//#region Measurements
+$headerHeight: 70px;
+$tallHeaderHeight: 118px;
+$bodyWidthXL: 1020px;
+$bodyWidthLG: 840px;
+$bodyWidthMD: 680px;
+$sideNavWidth: 200px;
+//#endregion Measurements
+
+//#region media-query sizes
+$breakXS: 400px;
+$breakSM: 560px;
+$breakMD: 700px;
+$breakLG: 960px;
+$breakXL: 1200px;
+//#endregion media-query sizes
