@@ -1,4 +1,4 @@
-{% extends 'mainsite/foundation.html' %}
+{% extends request.is_ajax|yesno:"mainsite/_blank.html,mainsite/foundation.html" %}
 {% load static %}
 
 {% block add_styles %}<link rel="stylesheet" href="{% static 'mainsite/indexstyles.css' %}">{% endblock %}
@@ -8,6 +8,9 @@
 	<video autoplay muted loop id="banner-video">
 	  <source src="{% static 'mainsite/assets/fzclip.mp4' %}" type="video/mp4"></source>
       <source src="{% static 'mainsite/assets/fzclip.webmhd.webm' %}" type="video/webm"></source>
+      <source type="video/youtube" src="https://www.youtube.com/watch?v=jtQguOMLnN0" />
+        Your browser doesn't support this video. If on an N version of Windows, please 
+        switch to Firefox or Chrome.
 	</video>
 	<div class="banner-text-cont">
 		<h1 class="hero-banner-text text-secondary">Clover Lane Candles</h1>

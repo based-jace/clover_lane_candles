@@ -1,6 +1,7 @@
 from django.db import models
 from model_utils import Choices
 from clover_lane_candles.settings import MEDIA_URL
+from django.contrib.postgres.fields import ArrayField
 #import django.contrib.postgres.fields
 
 #region Candles 
@@ -24,9 +25,10 @@ class Product(models.Model):
 
 class Product_Type(models.Model):
     TYPES = Choices('cinnamon roll votive', 'cinnamon roll', 'cinnamon roll with burn dish', 'full pie',
-     'pie slice', 'candle in jar', 'candle melts')
+    'jar candle with lid', 'candle melts')
 
     min_order = models.IntegerField("Minimum Number of this Product")
+    multiple_of = ArrayField(base_field=models.IntegerField(), null=True)
     name = models.CharField(max_length = 60, choices=TYPES)
     price = models.DecimalField("Price per Item", max_digits=5, decimal_places=2)
     desc = models.TextField(blank=True)
@@ -42,6 +44,8 @@ class Product_Type(models.Model):
 
     def __str__(self):
         return self.name.title()
+
+    
 
 class Scent(models.Model):
     SCENTS = Choices('pumpkin', 'mixed berry', 'sampler', 'strawberry', 'apple-cinnamon',

@@ -1,4 +1,4 @@
-{% extends 'mainsite/foundation.html' %}
+{% extends request.is_ajax|yesno:"mainsite/_blank.html,mainsite/foundation.html" %}
 {% load static %}
 {% block content %}
     <div class="fill-up lb-prime">

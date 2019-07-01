@@ -6,8 +6,13 @@
 
 var csrftoken = $("[name=csrfmiddlewaretoken]").val();
 
-let total_quantity = 0;
-let products = [];
+try{
+    var total_quantity = 0;
+    var products = [];
+}
+catch(e){
+    console.log(e);
+}
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -30,6 +35,7 @@ $(".product").each(function(i){
     tp.select = $(this).find(".prod_select").attr("id");
     tp.quantity = $(this).find(".order_amt_in").attr("id");
     tp.min_quant = $("#" + tp.quantity).attr("placeholder").replace('min ','')
+    tp.multiple_of = $(this).find(".multiple-of").attr("id");
     tp.btn = $(this).find(".add_prod_btn").attr("id");
 
     products.push(tp);
@@ -63,9 +69,24 @@ function setProperties(tp){
 
 function addToCart(tp){
     return function(){
-        let prod = $("#" + tp.select).attr("value");
-        let quant = $("#" + tp.quantity).attr("value");
-        if(Number(quant) >= Number(tp.min_quant)){
+        let prod = $("#" + tp.select).attr("value"); // Product
+        let quant = $("#" + tp.quantity).attr("value"); // Quantity
+        console.log(document.getElementById(tp.multiple_of).innerText);
+        
+        let is_multiple = false; // If 
+        let multiple_of_list = JSON.parse(document.getElementById(tp.multiple_of).innerText);
+        for(numer in multiple_of_list){
+            i = multiple_of_list[numer];
+            if (Number(quant) % i == 0){
+                is_multiple = true;
+                break;
+            };
+        };
+
+        if(
+            Number(quant) >= Number(tp.min_quant) &&
+            is_multiple
+            ){
             $.ajax({
                 type: "POST",
                 url: ADD_TO_CART_URL,

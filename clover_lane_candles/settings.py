@@ -97,9 +97,17 @@ WSGI_APPLICATION = 'clover_lane_candles.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'clover_lane_candles',
+        'USER': 'clover_lane_admin',
+        'PASSWORD': 'cloverlane',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
@@ -147,8 +155,8 @@ MEDIA_URL = '/media/'
 # CELERY SETTINGS
 from datetime import timedelta
 
-# CART_EXPIRATION_TIME = 864000 # 4 hours in seconds
-CART_EXPIRATION_TIME = 60 # 5 seconds
+CART_EXPIRATION_TIME = 864000 # 4 hours in seconds
+# CART_EXPIRATION_TIME = 60 # 60 seconds
 
 BROKER_URL = "amqp://guest:guest@localhost:5672//"
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"

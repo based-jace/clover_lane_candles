@@ -17,7 +17,6 @@
 
 .hero-banner-text{
     cursor: default;
-    margin: 15px;
 }
 
 .banner-text-cont{
@@ -108,6 +107,14 @@ footer{
     .video-banner{
 		height: 100vh;
     }
+    .hero-banner-text{
+        margin-top: -$headerHeight;
+    }
+}
+@media (min-width: $breakMD){
+    .hero-banner-text{
+        margin-top: -$tallHeaderHeight;
+    }
 }
 @media (min-width: $breakLG){
     .curvy-hole-cont {
@@ -124,5 +131,4 @@ footer{
 	.wholesale-heading{
 		margin: 0 0;
     }
-
 }

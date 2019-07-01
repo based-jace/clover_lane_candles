@@ -52,8 +52,24 @@ p {
   fill: #d7ff99;
 }
 
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow-y: scroll;
+}
+
 .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: calc(100vh - 80px);
   overflow: hidden;
+  margin-top: 70px;
 }
 
 .main-cont {
@@ -141,17 +157,18 @@ ul li {
   float: left;
 }
 
-ul li:last-child a {
+ul li:last-child button {
   border: none;
 }
 
-ul li a {
+ul li button {
   display: inline-block;
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 140px;
   padding: 8px 0;
+  border: none;
   border-right: 1px solid #098B43;
   text-decoration: none;
   text-align: center;
@@ -161,7 +178,7 @@ ul li a {
   transition: .2s ease-in-out;
 }
 
-ul li a i {
+ul li button i {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -171,37 +188,41 @@ ul li a i {
   transition: .2s ease-in-out;
 }
 
-ul li a i.clover-nav-icon {
+ul li button i.clover-nav-icon {
   top: 1px;
   font-size: 1.45em;
 }
 
-ul li a:hover {
+ul li button:hover {
   background: #098B43;
   color: #d7ff99;
   -webkit-transition: .2s ease-in-out;
   transition: .2s ease-in-out;
 }
 
-ul li a:hover i {
+ul li button:hover i {
   color: #d7ff99;
   -webkit-transition: .2s ease-in-out;
   transition: .2s ease-in-out;
 }
 
-ul li a:active {
+ul li button:active {
   background: #044421;
   color: #d7ff99;
   -webkit-box-shadow: 0 0 4px 2px #098B43;
           box-shadow: 0 0 4px 2px #098B43;
-  -webkit-transition: .2s ease-in-out;
-  transition: .2s ease-in-out;
+  -webkit-transition: .1s ease-in-out;
+  transition: .1s ease-in-out;
 }
 
-ul li a:active i {
+ul li button:active i {
   color: #d7ff99;
-  -webkit-transition: .2s ease-in-out;
-  transition: .2s ease-in-out;
+  -webkit-transition: .1s ease-in-out;
+  transition: .1s ease-in-out;
+}
+
+ul li button:focus {
+  outline: none;
 }
 
 .top-nav {
@@ -273,10 +294,6 @@ ul li a:active i {
   padding: 0;
 }
 
-.container {
-  margin-top: 70px;
-}
-
 .text-cont {
   margin: 0 15px;
 }
@@ -290,6 +307,7 @@ ul li a:active i {
 }
 
 footer {
+  width: 100%;
   background: #d7ff99;
   text-align: center;
   padding: 20px 0;
@@ -305,6 +323,7 @@ footer {
     margin-top: 0;
   }
   .main-cont {
+    margin-top: 70px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -326,6 +345,9 @@ footer {
 @media (min-width: 700px) {
   .header-company-name {
     font-size: 2.5em;
+  }
+  .main-cont {
+    margin-top: 112px;
   }
   .inner-cont {
     margin-left: auto;

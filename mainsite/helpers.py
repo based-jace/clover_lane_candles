@@ -15,3 +15,4 @@ def clean_cart(cart):
     cart.item_list.all().delete()
     cart.delete()
     #Cart_Item.objects.all().delete()
+

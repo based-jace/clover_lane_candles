@@ -46,16 +46,7 @@
   width: 42px;
 }
 
-@media (min-width: 400px) {
-  .product-list {
-    padding-top: 70px;
-  }
-}
-
 @media (min-width: 700px) {
-  .product-list {
-    padding-top: 118px;
-  }
   .product-list .product {
     height: 300px;
   }

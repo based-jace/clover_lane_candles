@@ -17,7 +17,6 @@
 
 .hero-banner-text {
   cursor: default;
-  margin: 15px;
 }
 
 .banner-text-cont {
@@ -120,6 +119,15 @@ footer {
 @media (min-width: 560px) {
   .video-banner {
     height: 100vh;
+  }
+  .hero-banner-text {
+    margin-top: -70px;
+  }
+}
+
+@media (min-width: 700px) {
+  .hero-banner-text {
+    margin-top: -112px;
   }
 }
 

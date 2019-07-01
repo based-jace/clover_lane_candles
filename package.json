@@ -1,0 +1,32 @@
+{
+  "name": "clover_lane_candles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "npm.js",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
+    "babel-preset-gatsby": "^0.2.0"
+  },
+  "browserslist": "> 0.25%, not dead",
+  "scripts": {
+    "build": "babel mainsite/static/mainsite -d mainsite/static/mainsite/productionjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/footjohnson/clover_lane_candles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/footjohnson/clover_lane_candles/issues"
+  },
+  "homepage": "https://github.com/footjohnson/clover_lane_candles#readme"
+}

@@ -41,16 +41,8 @@
 	}
 }
 
-@media(min-width: $breakXS){
-	.product-list{ 
-        padding-top: $headerHeight;
-		// padding-top: 0;
-	}
-}
-
 @media(min-width: $breakMD){
 	.product-list{
-        padding-top: $tallHeaderHeight;
 		.product{
             height: 300px;
             .p_head{

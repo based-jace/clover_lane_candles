@@ -17,8 +17,9 @@ from .models import Cart, Cart_Item
 clc_cache = caches["default"]
 
 def index(request):
-	inc_pc_time()
-	return render(request, 'mainsite/index.html')
+    inc_pc_time()
+    print(request.META.get('HTTP_REFERER'))
+    return render(request, 'mainsite/index.html')
 
 def about(request):
 	inc_pc_time()
@@ -37,7 +38,7 @@ class Products(TemplateView):
     def get_context_data(self, **kwargs):
         prod_list = Product.objects.all()
         context = super().get_context_data(**kwargs)
-        
+
         context["product_list"] = sorted(prod_list, key=lambda p: p.type_id.name)
         context["prod_list_json"] = serializers.serialize("json", prod_list, use_natural_foreign_keys=True)
         context["MEDIA_URL"] = MEDIA_URL
@@ -99,3 +100,8 @@ def contact(request):
 	inc_pc_time()
 	return render(request, 'mainsite/contact.html')
 
+def view_cart(request):
+    return render(request, "mainsite/viewcart.html")
+
+def spa_test(request):
+    return render(request, "mainsite/spa_test.html")
