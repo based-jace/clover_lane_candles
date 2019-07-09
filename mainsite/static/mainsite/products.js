@@ -26,7 +26,7 @@ $.ajaxSetup({
     }
 });
 
-$(".product").each(function(i){
+$(".product").forEach(function(i){
     let tp = {};
     
     tp.name = $(this).attr("id");
@@ -71,7 +71,7 @@ function addToCart(tp){
     return function(){
         let prod = $("#" + tp.select).attr("value"); // Product
         let quant = $("#" + tp.quantity).attr("value"); // Quantity
-        console.log(document.getElementById(tp.multiple_of).innerText);
+        // console.log(document.getElementById(tp.multiple_of).innerText);
         
         let is_multiple = false; // If 
         let multiple_of_list = JSON.parse(document.getElementById(tp.multiple_of).innerText);

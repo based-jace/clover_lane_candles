@@ -6,16 +6,16 @@
     <section class="product-list">
         <div class="inner-cont">
         {% regroup product_list by type_id as product_category_list %}
-<script>
-    try{
-        var prod_category_list = {{prod_list_json|safe}};
-        var MEDIA_URL = {{ MEDIA_URL }};
-        var ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
-    }
-    catch(e){
-        prod_category_list = {{prod_list_json|safe}};
-    }// Variables already exist
-</script>
+        <script>
+            try{
+                var prod_category_list = {{prod_list_json|safe}};
+                var MEDIA_URL = {{ MEDIA_URL }};
+                var ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
+            }
+            catch(e){
+                prod_category_list = {{prod_list_json|safe}};
+            }// Variables already exist
+        </script>
         {% for product_category in product_category_list %}
             <div class="product lb-prime" id="{{ product_category.grouper.css_id }}">
                 <div class="prod_sec_left">

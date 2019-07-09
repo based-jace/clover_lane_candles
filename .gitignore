@@ -6,3 +6,4 @@ migrations
 node_modules
 *.sqlite3
 env
+*/productionjs/productionjs

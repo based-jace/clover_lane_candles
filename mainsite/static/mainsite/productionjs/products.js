@@ -34,8 +34,7 @@ $(".product").each(function (i) {
   tp.select = $(this).find(".prod_select").attr("id");
   tp.quantity = $(this).find(".order_amt_in").attr("id");
   tp.min_quant = $("#" + tp.quantity).attr("placeholder").replace('min ', '');
-  tp.multiple_of = $(this).find(".multiple-of").attr("id"); //$("#multiple_of");
-
+  tp.multiple_of = $(this).find(".multiple-of").attr("id");
   tp.btn = $(this).find(".add_prod_btn").attr("id");
   products.push(tp);
 });
@@ -73,10 +72,10 @@ function addToCart(tp) {
 
     var quant = $("#" + tp.quantity).attr("value"); // Quantity
 
-    console.log(tp.multiple_of);
+    console.log(document.getElementById(tp.multiple_of).innerText);
     var is_multiple = false; // If 
 
-    var multiple_of_list = JSON.parse($(tp.multiple_of).text());
+    var multiple_of_list = JSON.parse(document.getElementById(tp.multiple_of).innerText);
 
     for (numer in multiple_of_list) {
       i = multiple_of_list[numer];

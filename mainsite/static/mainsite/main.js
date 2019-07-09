@@ -1,6 +1,8 @@
 let isIE;
 let firstLoad = true;
 
+const lsa = new loadScriptAsync();
+
 const MAIN_NAV_LINKS = [
     ['index-link', indexUrl],
     ['products-link', productsUrl],
@@ -8,8 +10,9 @@ const MAIN_NAV_LINKS = [
     ['cart-link', cartUrl]
 ]
 
-$('.hamburger').click(function(){
-	$('.hamburger').toggleClass("is-active");
+const hamburger = document.getElementsByClassName('hamburger')[0];
+hamburger.addEventListener("click", ()=>{
+	hamburger.classList.toggle("is-active");
 });
 
 function LinkToUrl(buttonId, url){
@@ -28,10 +31,10 @@ function GetAndReplacePage(newPage, historyPage, _isIE = isIE){
                 "X-Requested-With": "XMLHttpRequest"
             }
         })
-        .then(function(response){
+        .then(response=>{
             return response.text();
         })
-        .then(function(html){
+        .then(html=>{
             PushHTMLContent(html);
             if(!historyPage){
                 history.pushState(null, document.title, newPage);
@@ -56,7 +59,7 @@ function PushHTMLContent(content, _isIE = isIE){
         thisDoc.close();
     }
     else{
-        $(".main-cont").html(content);
+        lsa.ReplaceHtml(content, document.getElementsByClassName("main-cont")[0]);
     }
 }
 
@@ -70,7 +73,7 @@ function checkIfIE() {
 
 checkIfIE();
 
-window.addEventListener('popstate', (event)=>{
+window.addEventListener('popstate', event=>{
     event.preventDefault();
     LoadPage(window.location.href, true);
 });

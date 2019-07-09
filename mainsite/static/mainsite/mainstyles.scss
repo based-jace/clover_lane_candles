@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.hidden{
+    display: none;
+}
+
 body, header, footer, div{
     color: $black;
 	margin: 0;
@@ -137,6 +141,7 @@ ul{
             }
         }
         button{
+            cursor: pointer;
             display: inline-block;
             position: relative;
             box-sizing: border-box;

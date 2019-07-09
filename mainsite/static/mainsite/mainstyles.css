@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.hidden {
+  display: none;
+}
+
 body, header, footer, div {
   color: #192020;
   margin: 0;
@@ -162,6 +166,7 @@ ul li:last-child button {
 }
 
 ul li button {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   -webkit-box-sizing: border-box;
