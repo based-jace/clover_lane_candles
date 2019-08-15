@@ -1,3 +1,12 @@
+.header-separator {
+  background: transparent;
+  -webkit-transition: .2s linear;
+  transition: .2s linear;
+  color: #044421;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
 .video-banner {
   overflow: hidden;
   width: 100%;
@@ -16,7 +25,11 @@
 }
 
 .hero-banner-text {
+  margin-top: calc(55px - 70px);
   cursor: default;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .banner-text-cont {
@@ -69,11 +82,13 @@ div > .curvy-bottom_down {
 }
 
 .curvy-hole-cont {
+  top: 0;
   margin-top: -2px;
-  background: white;
+  background: #fffdad;
 }
 
 .curvy-hole-cont .curvy-hole {
+  background: white;
   height: 450px;
   width: 100%;
 }
@@ -92,6 +107,16 @@ div > .curvy-bottom_down {
 }
 
 .custom-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: relative;
   top: -415px;
   margin-bottom: -250px;
@@ -102,6 +127,7 @@ div > .curvy-bottom_down {
 }
 
 .main-cont {
+  margin-top: 0;
   padding-bottom: 0;
 }
 
@@ -120,18 +146,25 @@ footer {
   .video-banner {
     height: 100vh;
   }
-  .hero-banner-text {
-    margin-top: -70px;
-  }
-}
-
-@media (min-width: 700px) {
-  .hero-banner-text {
-    margin-top: -112px;
-  }
 }
 
 @media (min-width: 960px) {
+  .hero-banner-text {
+    margin-top: calc(55px - 85px);
+  }
+  .header-separator {
+    opacity: .5;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .header-separator:hover {
+    background-color: rgba(215, 255, 153, 0.8);
+    -webkit-box-shadow: 0 0px 8px #192020;
+            box-shadow: 0 0px 8px #192020;
+    -webkit-transition: .2s linear;
+    transition: .2s linear;
+    opacity: 1;
+  }
   .curvy-hole-cont {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -150,5 +183,12 @@ footer {
   .wholesale-heading {
     margin: 0 0;
   }
+}
+
+.show-header {
+  background: rgba(215, 255, 153, 0.8);
+  opacity: 1;
+  -webkit-box-shadow: 0 0px 8px #192020;
+          box-shadow: 0 0px 8px #192020;
 }
 /*# sourceMappingURL=indexstyles.css.map */

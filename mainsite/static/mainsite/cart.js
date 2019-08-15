@@ -14,7 +14,7 @@ function doThing(){
     })
 }
 
-let vue = new Vue({
+var vue = new Vue({
     el: '#cart-view',
     data: {
 

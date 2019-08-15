@@ -1,5 +1,12 @@
 @import "vars";
 
+.header-separator{
+    background: transparent;
+    transition: .2s linear;
+    color: $primary-dark;
+    box-shadow: none;
+}
+
 .video-banner{
 	overflow: hidden;
 	width: 100%;
@@ -16,7 +23,11 @@
 }
 
 .hero-banner-text{
+    margin-top: calc(55px - #{$headerHeight});
     cursor: default;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .banner-text-cont{
@@ -60,9 +71,11 @@ div > .curvy-bottom_down{
 }
 
 .curvy-hole-cont{
+    top: 0;
 	margin-top: -2px;
-	background: white;
+	background: $sub-second-color;
 	.curvy-hole{
+        background: white;
 		height: 450px;
 		width: 100%;
 		path{
@@ -81,6 +94,9 @@ div > .curvy-bottom_down{
 }
 
 .custom-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 	position: relative;
 	top: -415px;
 	margin-bottom: -250px;
@@ -91,6 +107,7 @@ div > .curvy-bottom_down{
 }
 
 .main-cont{
+    margin-top: 0;
 	padding-bottom: 0;
 }
 footer{
@@ -107,16 +124,21 @@ footer{
     .video-banner{
 		height: 100vh;
     }
-    .hero-banner-text{
-        margin-top: -$headerHeight;
-    }
-}
-@media (min-width: $breakMD){
-    .hero-banner-text{
-        margin-top: -$tallHeaderHeight;
-    }
 }
 @media (min-width: $breakLG){
+    .hero-banner-text{
+        margin-top: calc(55px - #{$tallHeaderHeight});
+    }
+    .header-separator{
+        opacity: .5;
+        box-shadow: none;
+        &:hover{
+            background-color:$nav-header-color__transparent;
+            box-shadow: 0 0px 8px $black;
+            transition: .2s linear;
+            opacity: 1;
+        }
+    }
     .curvy-hole-cont {
         display: flex;
         justify-content: flex-end;
@@ -131,4 +153,10 @@ footer{
 	.wholesale-heading{
 		margin: 0 0;
     }
+}
+
+.show-header{
+    background: $nav-header-color__transparent;
+    opacity: 1;
+    box-shadow: 0 0px 8px $black;
 }

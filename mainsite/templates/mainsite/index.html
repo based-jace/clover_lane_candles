@@ -2,18 +2,18 @@
 {% load static %}
 
 {% block add_styles %}<link rel="stylesheet" href="{% static 'mainsite/indexstyles.css' %}">{% endblock %}
+{% block add_js %}<script src="{% static 'mainsite/index.js' %}"></script>{% endblock %}
 {% block content %}
 <section class="video-banner">
 	<!-- Video Banner -->
-	<video autoplay muted loop id="banner-video">
-	  <source src="{% static 'mainsite/assets/fzclip.mp4' %}" type="video/mp4"></source>
-      <source src="{% static 'mainsite/assets/fzclip.webmhd.webm' %}" type="video/webm"></source>
-      <source type="video/youtube" src="https://www.youtube.com/watch?v=jtQguOMLnN0" />
+	<video autoplay loop muted playsinline id="banner-video">
+	  <source src="{% static 'mainsite/assets/fzclip1.mp4' %}" type="video/mp4"></source>
+      <source src="{% static 'mainsite/assets/fzclip1.webmhd.webm' %}" type="video/webm"></source>
         Your browser doesn't support this video. If on an N version of Windows, please 
         switch to Firefox or Chrome.
 	</video>
 	<div class="banner-text-cont">
-		<h1 class="hero-banner-text text-secondary">Clover Lane Candles</h1>
+		<h1 class="hero-banner-text">Clover Lane Candles</h1>
 	</div>
 </section>
 <section class="bg-light lb-prime">

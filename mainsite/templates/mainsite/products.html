@@ -7,14 +7,9 @@
         <div class="inner-cont">
         {% regroup product_list by type_id as product_category_list %}
         <script>
-            try{
-                var prod_category_list = {{prod_list_json|safe}};
-                var MEDIA_URL = {{ MEDIA_URL }};
-                var ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
-            }
-            catch(e){
-                prod_category_list = {{prod_list_json|safe}};
-            }// Variables already exist
+            var prod_category_list = {{prod_list_json|safe}};
+            var MEDIA_URL = {{ MEDIA_URL }};
+            var ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
         </script>
         {% for product_category in product_category_list %}
             <div class="product lb-prime" id="{{ product_category.grouper.css_id }}">
@@ -32,6 +27,7 @@
                         {% for product in product_category.list|dictsort:"scent_id.name" %}
                             <option value="p{{ product.id }}" {% if product.is_main %}selected="selected"{% endif %}>
                                 {{product.scent_id}}
+                            </option>
                         {% endfor %}
                         </select>
                         <input name="quantity" class="order_amt_in" id="no_{{ product_category.grouper.css_id }}" type="text" placeholder="min {{ product_category.grouper.min_order }}">

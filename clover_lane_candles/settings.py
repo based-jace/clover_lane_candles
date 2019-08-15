@@ -155,8 +155,8 @@ MEDIA_URL = '/media/'
 # CELERY SETTINGS
 from datetime import timedelta
 
-CART_EXPIRATION_TIME = 864000 # 4 hours in seconds
-# CART_EXPIRATION_TIME = 60 # 60 seconds
+# CART_EXPIRATION_TIME = 14400 # 4 hours in seconds
+CART_EXPIRATION_TIME = 60 # 60 seconds
 
 BROKER_URL = "amqp://guest:guest@localhost:5672//"
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"

@@ -8,6 +8,7 @@ $secondary-color: #ff85a6;
 $sub-second-color: #fffdad;
 $light-color: #fff2eb;
 $nav-header-color: $sub-prime-color;
+$nav-header-color__transparent: rgba(215, 255, 153, .8);
 //#endregion colors
 
 //#region fonts
@@ -17,7 +18,7 @@ $body-font: 'Marmelad', sans-serif;
 
 //#region Measurements
 $headerHeight: 70px;
-$tallHeaderHeight: 112px;
+$tallHeaderHeight: 85px;
 $bodyWidthXL: 1020px;
 $bodyWidthLG: 840px;
 $bodyWidthMD: 680px;

@@ -5,16 +5,13 @@
     width: 100%;
 }
 
-.hidden{
-    display: none;
-}
-
 body, header, footer, div{
     color: $black;
 	margin: 0;
 }
 
 body{
+    overflow: hidden;
 	font-family: $body-font;
 	background: $primary-color;
 }
@@ -50,6 +47,11 @@ p{
 								 not supported by any browser */
 }
 
+.hamburger:focus{
+    outline: $primary-color 1px solid;
+}
+
+
 body{
     display: flex;
     flex-direction: column;
@@ -60,9 +62,9 @@ body{
     display: flex;
     min-height: calc(100vh - 80px); // 80px is the footer height 
     overflow: hidden;
-    margin-top: $headerHeight;
 }
 .main-cont{
+    margin-top: $headerHeight;
     width: 100%;
 	background: $sub-second-color;
 }
@@ -100,7 +102,7 @@ h3{
     font-size: 4em;
     color: $primary-color;
     opacity: .5;
-    transition: .2s ease-in-out;
+    transition: .4s linear;
     &:hover{
         opacity: 1;
         transition: .2s ease-in-out;
@@ -119,15 +121,21 @@ header{
 	position: absolute;
 	top: 0;
 	z-index: 2;
-	width: 100%;
-	//background-color: $sub-second-color;
-	background-color:$nav-header-color;
+    width: 100%;
 	height: $headerHeight;
     align-items: center;
+    transition: .2s linear;
+    background-color:$nav-header-color__transparent;
     box-shadow: 0 0px 8px $black;
+}
+.header-company-name{
+    color: $primary-color;
 }
 
 .nav-buttons{
+    position: absolute;
+    top: 22px;
+    left: 328px;
     display: none;
 }
 ul{
@@ -255,6 +263,33 @@ footer{
     box-sizing: border-box;
 }
 
+.loading-screen{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin-top: -100vh;
+    background: $sub-prime-color;
+}
+
+.loading-screen__intermediate{
+    margin-top: 0;
+    transition: .4s ease-in-out;
+}
+
+.loading-screen__end{
+    margin-top: 100vh;
+    transition: .4s ease-in-out;
+}
+
+.loading-screen-text{
+    cursor: default;
+    color: $complementary-prime;
+    text-align: center;
+}
+
 @media(min-width: $breakXS){
     h3{
         font-size: 2em; 
@@ -263,7 +298,6 @@ footer{
 		margin-top: 0;
     }
     .main-cont{
-        margin-top: $headerHeight;
         margin-left: auto;
         margin-right: auto;
     }
@@ -286,33 +320,10 @@ footer{
     .header-company-name{
 		font-size: 2.5em;
     }
-    .main-cont{
-        margin-top: $tallHeaderHeight;
-    }
     .inner-cont{
         margin-left: auto;
         margin-right: auto;
         width: $bodyWidthMD;
-    }
-    .header-separator{
-        display: block;
-        height: auto;
-    }
-	.top-nav{
-		margin-top: 4px;
-		display: flex;
-    }
-    .nav-buttons{
-        display: flex;
-        justify-content: center;
-    }
-    .hamburger-cont{
-		display: none;
-	}
-	.cart-cont{
-		display: flex;
-		position: absolute;
-		right: 0;
     }
 
     footer{
@@ -333,7 +344,9 @@ footer{
 	.container{
 		display: flex;
 		flex-direction: row;
-		
+    }
+    .main-cont{
+        margin-top: $tallHeaderHeight;
     }
 	.main-cont, footer, .header-separator{
         margin-left: auto;
@@ -342,12 +355,39 @@ footer{
         width: $bodyWidthLG;
     }
     
+    .header-separator{
+        display: block;
+        height: auto;
+    }
+    .header-company-name{
+        color: $complementary-prime;
+    }
+
+	.top-nav{
+        margin-top: 10px;
+        margin-bottom: 10px;
+		display: flex;
+    }
+	.cart-cont{
+		display: flex;
+		position: absolute;
+		right: 0;
+    }
+
     .header-divider{
         pointer-events: none;
         width: calc(100% + 20px); 
         margin-left: calc(#{$sideNavWidth} - 3px);
         margin-right: -1px;
     }
+    .nav-buttons{
+        display: flex;
+        justify-content: center;
+    }
+    .hamburger-cont{
+		display: none;
+	}
+
 }
 
 @media(min-width: $breakXL){
@@ -359,3 +399,16 @@ footer{
     }
 }
 
+.invisible{
+    opacity: 0;
+    transition: .2s linear;
+}
+
+.hidden{
+    display: none;
+}
+
+.hide-up-arrow{
+    bottom: -80px;
+    transition: .4s linear;
+}

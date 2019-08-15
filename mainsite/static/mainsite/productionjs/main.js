@@ -2,9 +2,11 @@
 
 var isIE;
 var firstLoad = true;
+var lsa = new loadScriptAsync();
 var MAIN_NAV_LINKS = [['index-link', indexUrl], ['products-link', productsUrl], ['about-link', aboutUrl], ['cart-link', cartUrl]];
-$('.hamburger').click(function () {
-  $('.hamburger').toggleClass("is-active");
+var hamburger = document.getElementsByClassName('hamburger')[0];
+hamburger.addEventListener("click", function () {
+  hamburger.classList.toggle("is-active");
 });
 
 function LinkToUrl(buttonId, url) {
@@ -57,7 +59,7 @@ function PushHTMLContent(content) {
     thisDoc.write(content);
     thisDoc.close();
   } else {
-    $(".main-cont").html(content);
+    lsa.ReplaceHtml(content, document.getElementsByClassName("main-cont")[0]);
   }
 }
 /** Checks if browser is Internet Explorer */

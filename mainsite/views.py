@@ -7,6 +7,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 # This is the django module which allows the Django object to become JSON
 from django.core import serializers
+import json
 
 from django.http import JsonResponse
 
@@ -18,7 +19,7 @@ clc_cache = caches["default"]
 
 def index(request):
     inc_pc_time()
-    print(request.META.get('HTTP_REFERER'))
+    # print(request.META.get('HTTP_REFERER'))
     return render(request, 'mainsite/index.html')
 
 def about(request):
@@ -47,6 +48,8 @@ class Products(TemplateView):
 
 def add_to_cart(request):
     if request.method == "POST":
+        data = json.loads(request.body)
+
         quantity = 0
         total_quantity = 0
 
@@ -54,15 +57,15 @@ def add_to_cart(request):
         cart_id = 0
 
         this_product = None
-        product_id = str(request.POST['product'])[1:] # Slice removes the "p" character
+        product_id = str(data['product'])[1:] # Slice removes the "p" character
         product = Product.objects.get(pk=product_id)
 
         try: # Check if quantity POSTed
-            quantity = int(request.POST['quantity'])
+            quantity = int(data['quantity'])
         except ValueError:
             quantity = 0
         try: # Check if total_quantity POSTed
-            total_quantity = int(request.POST['total_quantity'])
+            total_quantity = int(data['total_quantity'])
         except ValueError:
             total_quantity = 0
         
