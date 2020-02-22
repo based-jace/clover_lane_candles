@@ -1,0 +1,95 @@
+{% load cache %}
+{% cache 600 full_cache %}
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		{% comment %} <meta charset="utf-8"> {% endcomment %}
+		{% comment %} <title>{% block title %}Clover Lane Candles{% endblock %}</title> {% endcomment %}
+        {% comment %} <link rel="icon" href="{% static 'mainsite/assets/images/cloverlogo.png' %}"> {% endcomment %}
+		{% comment %} <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> {% endcomment %}
+		{% comment %} <link rel="stylesheet" href="{% static 'mainsite/hamburgers.min.css' %}"> {% endcomment %}
+		{% comment %} <link href="https://fonts.googleapis.com/css?family=Istok+Web|Marmelad|Rochester|Ruda" rel="stylesheet">  {% endcomment %}
+		{% comment %} <link rel="stylesheet" href="{% static 'mainsite/mainstyles.css' %}"> {% endcomment %}
+        {% comment %} <script src="{% static 'mainsite/polyfill.min.js' %}" type="text/javascript"></script> {% endcomment %}
+        {% comment %} <script src="{% static 'mainsite/fetch.umd.js' %}"></script> {% endcomment %}
+        {% comment %} <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script> {% endcomment %}
+        {% comment %} <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>  {% endcomment %}
+        {% comment %} <script src="{% static 'mainsite/loadScriptAsync.js' %}"></script> {% endcomment %}
+        {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> {% endcomment %}
+        {% comment %} <script>
+        try{
+            var isIndex = false;
+            var indexUrl = '{% url 'index' %}';
+            var productsUrl = '{% url 'products' %}';
+            var cartUrl = '{% url 'view_cart' %}';
+            var aboutUrl = '{% url 'about' %}';
+        }
+        catch(e){};
+        </script> {% endcomment %}
+        {% block before_js %}{% endblock %}
+	</head>
+	<body>
+		{% comment %} <header>
+			<div class="header-separator">
+				<nav class="top-nav">
+                    <div class="img-cont logo-cont">
+                        <a href="{% url 'index' %}">
+                            <img class="nav-logo" src="{% static 'mainsite/assets/images/cloverlogo.png' %}" alt="Clover Logo">
+                        </a>
+                    </div>
+                    <div class="header-name-cont">
+                        <a href="{% url 'index' %}">
+                            <h3 class="header-company-name">Clover Lane Candles</h3>
+                        </a>
+                    </div>
+					<div class="hamburger-cont">
+						<button class="hamburger hamburger--spin" type="button">
+							<span class="hamburger-box">
+							    <span class="hamburger-inner"></span>
+							</span>
+						</button>
+					</div>
+					<div class="cart-cont">
+						<button id="cart-link" type="button" class="cart">
+							<span class="cart-box">
+							    <span class="fas fa-shopping-cart"></span>
+							</span>
+						</button>
+					</div>
+				</nav>
+                <nav class="nav-buttons">
+                    <ul>
+                        {% comment %} <li><a href="{% url 'index' %}"><i class="fas fa-home"></i>Home</a></li> {% endcommentemp %}
+                        <li><button id="index-link" href="javascript:void(0)" ><i class="fas fa-home"></i>Home</button></li>
+                        <li><button id="products-link" href="javascript:void(0)" ><i class="fas fa-birthday-cake"></i>Products</button></li>
+                        <li><button id="about-link" href="javascript:void(0)" ><i class="clover-nav-icon">☘</i>About</button></li>
+                        <li><button href="javascript:void(0)"><i class="fas fa-phone"></i>Contact</button></li>
+                    </ul>
+                </nav>
+			</div>
+		</header> {% endcomment %}
+		{% block container_override %}
+		{% comment %} <div class="container">
+			<main class="main-cont">
+            {% block add_styles %}{% endblock %}
+			{% block content %}
+			{% endblock %}
+			</main>
+		</div> {% endcomment %}
+		{% endblock %}
+		{% comment %} <footer class="grid-cont lb-prime">
+			<div>
+				<small>Copyright &#169; 2019 Clover Lane Candles, LLC</small>
+				<div><small>Website by Gryme Design</small></div>
+			</div>
+        </footer>
+        <div class="to-top-btn"><i class="fas fa-angle-up"></i></div>
+        <div class="loading-screen">
+            <h1 class="loading-screen-text">Clover Lane Candles</h1>
+        </div> {% endcomment %}
+		<script src="{% static 'mainsite/main.js' %}"></script>
+		{% block add_js %}{% endblock %}
+	</body>
+</html>
+{% endcache %}

@@ -1,0 +1,79 @@
+{% extends request.is_ajax|yesno:"mainsite/_blank.html,mainsite/foundation.html" %}
+{% load static %}
+{% block add_styles %}<link rel="stylesheet" href="{% static 'mainsite/viewcart.css' %}">{% endblock %}
+{% block before_js %}{% endblock %}
+{% block content %}
+<script>
+    var cart = {{cart|safe}};
+    // var MEDIA_URL = {{ MEDIA_URL }};
+    // var ADD_TO_CART_URL = "{% url 'add_to_cart' %}";
+</script>
+<div id="cart-view" class="cart-view-page">
+    <section class="cart-left">
+        <div class="cart-body">
+            <div class="cart-header"><h2>Cart</h2></div>
+            <table>
+                <thead>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Remove</th>
+                </thead>
+                <tbody>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <!-- <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr>
+                    <tr><td>Blah</td></tr> -->
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="cart-buttons">
+            <button class="left-cart-button"><i class="fas fa-caret-left hidden"></i>Update Cart</button>
+            <button class="right-cart-button">Shipping<i class="fas fa-caret-right"></i></button>
+        </div>
+    </section>
+    <section class="cart-right">
+        <div class="order-cont">
+            <div class="order">
+                <div class="order-header">Your Order</div>
+                <div class="order-body">
+                    <p class="order-subtotal">
+                        <span class="order-subtotal-label">Subtotal:</span>
+                        <span class="dollar-sign">$</span>
+                        <span class="amount">xx.xx</span>
+                    </p>
+                    <p class="order-tax">
+                        <span class="order-tax-label">Tax:</span>
+                        <span class="dollar-sign">$</span>
+                        <span class="amount">xx.xx</span>
+                    </p>
+                    <p class="order-shipping">
+                        <span class="order-shipping-label">Shipping:</span>
+                        <span class="dollar-sign">$</span>
+                        <span class="amount">xx.xx</span>
+                    </p>
+                    <p class="order-total">
+                        <span class="order-total-label">Total:</span>
+                        <span class="dollar-sign">$</span>
+                        <span class="amount">xx.xx</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block add_js %}
+<script src="{% static 'mainsite/cart.js' %}"></script>
+{% endblock %}

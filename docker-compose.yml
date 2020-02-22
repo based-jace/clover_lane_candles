@@ -1,0 +1,47 @@
+version: '3'
+services: 
+    webapp:
+        build: ./webapp
+        ports: 
+            - 3000:3000
+        depends_on: 
+            - api
+
+    api:
+        build: ./api
+        expose:
+            - 80
+        depends_on: 
+            - mongo
+    
+    admin:
+        build: ./admin
+        ports:
+            - 2500:80
+        depends_on: 
+            - api
+
+    mongo:
+        image: mongo:4.0-xenial
+        restart: always
+        expose: 
+            - 27017
+        ports:
+            - "5000:27017"
+        volumes: 
+            - mongodata:/data/db
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        ports: 
+            - 8081:8081
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+volumes:
+    mongodata:
