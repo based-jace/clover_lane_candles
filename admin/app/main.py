@@ -1,4 +1,4 @@
-import pymongo
+from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 from flask import Flask
@@ -6,24 +6,31 @@ import flask_admin
 from flask_admin import AdminIndexView
 
 from wtforms import form, fields
+from wtforms.validators import InputRequired, NumberRange
 
 from flask_admin.form import Select2Widget
 from flask_admin.contrib.pymongo import ModelView, filters
 from flask_admin.model.fields import InlineFormField, InlineFieldList
 
+import sys
+
+sys.path.append('./')
+
+import db_helpers as dbh
+
 # Create application
 app = Flask(__name__, instance_relative_config=True)
-# app.config.from_object('instance/config.py')
 app.config.from_pyfile('config.py')
 
 # Create models
-conn = pymongo.MongoClient(
-    "mongodb://mongo:27017/",
+mongoclient = MongoClient(
+    # "mongodb://mongo:27017/", # Production
+    "mongodb://localhost:6000/", # Development
     username="root",
     password="example",
     connect=False
 )
-db = conn.clover_lane
+db = mongoclient.clover_lane
 
 # Maybe add in later
 # class UserView(ModelView):
@@ -32,52 +39,68 @@ db = conn.clover_lane
 
 #     form = UserForm
 
+# Forms
 class CandleForm(form.Form):
-    color = fields.StringField('Color', description="Optional. Use this for things like jar candles")
-    scent = fields.SelectField('Scent')
+    candle_type = fields.SelectField("Candle Type", choices=dbh.GetChoices("candle_types", db))
+    color = fields.SelectField('Color', description="Optional. Use this for things like jar candles",
+            choices=dbh.GetChoices("candle_colors", db))
+    scent = fields.SelectField('Scent', choices=dbh.GetChoices("candle_scents", db))
 
-class ProductForm(form.Form):
-    product_type_choice_list = db.product_types.find({})
-    product_type_choices = [(p_type['name'], p_type['name']) for p_type in product_type_choice_list]
-    
-    product_type = fields.SelectField('Type', choices=product_type_choices)
-    price = fields.FloatField('Price')
-    min_quant = fields.IntegerField('Minimum Quantity')
-    quant_of = fields.StringField('Quantities of', description=
-    """The number a customer must order in sets of. May be separated by a \",\" 
-    if there are multiple options allowed. If left blank, defaults to 1.
-    Example: 4,7 for pies """)
-    # product_type = fields.StringField('Type')
-    
-    # product_subcategory = fields.SelectField('Subcategory')
-    # # Inner forms
-    # product_candle_form = InlineFormField(CandleForm)
+class CandleTypeForm(form.Form):
+    name = fields.StringField("Candle Type", description="jar, votive, etc.", validators=[InputRequired()])
+    description = fields.StringField("Description", description="Optional. Description of the candle type")
+    price = fields.FloatField("Price", description="Price per candle in USD ($)", default=0, validators=[InputRequired(), NumberRange(0)])
+    listed_weight = fields.FloatField("Listed Weight", description="Listed weight in oz", 
+                    default=0, validators=[InputRequired(), NumberRange(0)])
+    actual_weight = fields.FloatField("Actual Weight", description="Actual weight in oz. If less than listed_weight, defaults to listed weight", 
+                    default=0, validators=[InputRequired(), NumberRange(0)])
+    min_quant = fields.IntegerField("Minimum Quantity", default=1, validators=[InputRequired(), NumberRange(1)])
+    quant_of = fields.StringField("Quantities Of", description="4; 2, 7; etc. Defaults to min_quant if not given")
 
-    # Form list
-    # form_list = InlineFieldList(InlineFormField(InnerForm))
+class CandleColorsForm(form.Form):
+    name = fields.StringField("Color Name", validators=[InputRequired()])
+    description = fields.StringField("Description", description="Optional")
 
-class ProductTypeForm(form.Form):
-    name = fields.StringField('Name', description='examples: candle, burning tin, etc.')
+class CandleScentsForm(form.Form):
+    name = fields.StringField("Scent Name", validators=[InputRequired()])
+    description = fields.StringField("Description", description="Optional. Describe the scent.")
 
-class ProductView(ModelView):
-    column_list = ('product_type', 'price', 'min_quant', 'quant_of', 'color', 'scent')
-    column_sortable_list = ('product_type', 'price', 'min_quant', 'quant_of', 'color', 'scent')
-    column_labels = {'product_type': 'Type', 'min_quant': 'Minimum Quantity', 'quant_of': 'Quantities Of'}
+# Views
+class CandleView(ModelView):
+    column_list = ('candle_type', 'scent', 'color')
+    column_sortable_list = column_list
+    column_labels = {'candle_type': 'Type'}
 
-    form = ProductForm
+    form = CandleForm
 
-class ProductTypeView(ModelView):
-    column_list = ('name',)
-    column_labels = {'name': 'Name'}
+class CandleTypeView(ModelView):
+    column_list = ('name', 'price', 'listed_weight', 'actual_weight', 'min_quant', 'quant_of')
+    column_sortable_list = ('name', 'price', 'listed_weight', 'actual_weight', 'min_quant')
+    column_labels = {'price': "Price ($)", 'min_quant': "Minimum Quantity", "quant_of": "Quantities Of"}
 
-    form = ProductTypeForm
+    form = CandleTypeForm
 
-# Flask views
-# @app.route('/')
-# def index():
-#     return '<a href="/admin/">Click me to get to the admin page!</a>'
+    def on_model_change(self, form, model, is_created):
+        # Sets actual_weight to listed_weight if listed_weight is greater than actual_weight's given value
+        model['actual_weight'] = model["listed_weight"] if model["listed_weight"] > model["actual_weight"] else model['actual_weight']
 
-# Create admin
+        # Ensures quant_of is in a sensible format
+        model["quant_of"] = dbh.ensure_quant_list(model["quant_of"], model["min_quant"])
+
+        return super().on_model_change(form, model, is_created)
+
+class CandleColorsView(ModelView):
+    column_list = ("name", "description")
+    column_sortable_list = ("name",)
+
+    form = CandleColorsForm
+
+class CandleScentsView(ModelView):
+    column_list = ("name", "description")
+    column_sortable_list = ("name",)
+
+    form = CandleScentsForm
+
 admin = flask_admin.Admin(
     app, 
     name='Clover Lane Admin',
@@ -92,9 +115,15 @@ admin = flask_admin.Admin(
 )
 
 # Add views
-admin.add_view(ProductView(db.products, 'Products', endpoint="products"))
-admin.add_view(ProductTypeView(db.product_types, 'Product Types', endpoint="product_types"))
-# admin.add_view(TweetView(db.tweet, 'Tweets'))
+admin.add_view(CandleView(db.candles, 'Candles', "Candles", endpoint="candles"))
+
+admin.add_sub_category(name="Candle Attributes", parent_name="Candles")
+
+admin.add_view(CandleTypeView(db.candle_types, 'Candle Types', "Candle Attributes", endpoint="candles/attrs/types"))
+admin.add_view(CandleScentsView(db.candle_scents, 'Candle Scents', "Candle Attributes", endpoint="candles/attrs/scents"))
+admin.add_view(CandleColorsView(db.candle_colors, 'Candle Colors', "Candle Attributes", endpoint="candles/attrs/colors"))
+
 
 # Start app
-# app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True, port="2500")

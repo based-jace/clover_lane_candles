@@ -2,20 +2,23 @@ from flask import Flask, jsonify
 import requests
 # from flask_cors import CORS
 
+from pymongo import MongoClient
+
+mongoclient = MongoClient(
+    "mongodb://mongo:27017/",
+    username="root",
+    password="example",
+    connect=False
+)
+
 app = Flask(__name__)
 # CORS(app)
 
 @app.route("/")
 def hello():
-    import pymongo
 
-    mongoclient = pymongo.MongoClient(
-        "mongodb://db:27017/",
-        username="root",
-        password="example",
-        connect=False
-    )
     print(mongoclient.list_database_names())
+    return "okay"
 
 @app.route("/test/")
 def t_dawg_is_back_again():

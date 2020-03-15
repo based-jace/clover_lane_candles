@@ -1,9 +1,9 @@
-Name - listed weight * how many in a pack (actual weight for calculations)
+Name - listed weight * how many in a pack (actual weight for calculations) - Price (${min} min_quant)
 
-Cinnamon Roll Votives - 3.0 oz * 24 (3.0 oz)
-Cinnamon Roll - 12.0 oz * 12 (16.0 oz)
-Cinnamon Roll w/ Burn Dish - 20.0 oz * 12 (But say 12 oz w/ decorative burn dish) (20.0 oz)
-Melts - 5.0 oz * 12 (5.0 oz)
-Jar candle votives (2-piece) - 5.0 oz * 12 (5.0 oz)
-Jar candle w/ lid candle - ?? 
-Full Pie - ?? 
+Cinnamon Roll Votives - 3.0 oz * 24 (3.0 oz) - $2 (min 24)
+Cinnamon Roll - 12.0 oz * 12 (16.0 oz) - $5 (min 12)
+Cinnamon Roll w/ Burn Dish - 20.0 oz * 12 (But say 12 oz w/ decorative burn dish) (20.0 oz) - $7 (min 12)
+Melts - 5.0 oz * 12 (5.0 oz) - ?? (min ??)
+Jar candle votives (2-piece) - 5.0 oz * 12 (5.0 oz) - ?? (min ??)
+Jar candle w/ lid candle - ?? oz  * ?? (?? oz) - ?? (min ??)
+Full Pie - ?? oz  * 4, 7 (?? oz) - $12 (min 4)
