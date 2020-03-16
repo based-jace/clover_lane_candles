@@ -1,3 +1,10 @@
 {
-    
+    "db_location": {
+        "dev": "mongodb://localhost:6000/",
+        "prod": "mongodb://mongo:27017/"
+    },
+    "product_types": [
+        "candles",
+        "misc"
+    ]
 }

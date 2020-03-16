@@ -1,30 +1,50 @@
-from flask import Flask, jsonify
-import requests
-# from flask_cors import CORS
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 from pymongo import MongoClient
 
+import json
+
+with open("config.json") as json_config:
+    config = json.load(json_config)
+
 mongoclient = MongoClient(
-    "mongodb://mongo:27017/",
+    config["db_location"]["dev"],
     username="root",
     password="example",
     connect=False
 )
 
-app = Flask(__name__)
-# CORS(app)
+db = mongoclient.clover_lane
 
-@app.route("/")
-def hello():
+app = FastAPI()
 
-    print(mongoclient.list_database_names())
-    return "okay"
+@app.get("/products")
+async def get_all_products():
+    collection = {}
+    for product_type in config["product_types"]:
+        product_list = list(db[product_type].find(projection={"_id": 0}))
+        collection[product_type] = product_list
 
-@app.route("/test/")
-def t_dawg_is_back_again():
-    # requests.get("http://db:8081/")
-    return jsonify({"T-Dawg is back again": "and I've brought a new hit with me, boys."})
+    return collection
 
-if __name__ == "__main__":
-    # Only for debugging while developing
-    app.run(host='0.0.0.0', debug=True, port=80)
+@app.get(
+    "/products/{product_type}",
+    responses={
+        404: {"description": "Item not found"}
+    }
+)
+async def get_products(product_type: str):
+    if product_type not in config["product_types"]:
+        return JSONResponse(
+            status_code=404, 
+            content={
+                "message": "product_type '" + product_type + "' not found in database"
+            }
+        )
+
+    else:
+        products = list(db[product_type].find(projection={"_id": 0}))
+        collection = {product_type: products}
+
+        return collection
